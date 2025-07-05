@@ -1,0 +1,36 @@
+<div class="sidebar-section workspace">
+        <div class="workspace-header">
+          <span>Noname 00</span>
+          <div>
+            <i class="fas fa-chevron-right action-icon"></i>
+            <i class="fas fa-edit action-icon"></i>
+          </div>
+        </div>
+        <div class="workspace-content">
+          <a href="#" class="sidebar-item">
+            <i class="far fa-file-alt"></i>
+            <span>Note</span>
+            <i class="fas fa-ellipsis-h action-icon-more"></i>
+          </a>
+          <a href="#" class="sidebar-item">
+            <i class="far fa-calendar-alt"></i>
+            <span>Calendar</span>
+            <i class="fas fa-ellipsis-h action-icon-more"></i>
+          </a>
+          <a href="#" class="sidebar-item">
+            <i class="fas fa-list-check"></i>
+            <span>To-do list</span>
+            <i class="fas fa-ellipsis-h action-icon-more"></i>
+          </a>
+          <a href="#" class="sidebar-item">
+            <i class="far fa-check-square"></i>
+            <span>Task</span>
+            <i class="fas fa-ellipsis-h action-icon-more"></i>
+          </a>
+          <a href="#" class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Team</span>
+            <i class="fas fa-ellipsis-h action-icon-more"></i>
+          </a>
+        </div>
+      </div>

@@ -70,28 +70,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /** Tạo một workspace mới và chèn vào sidebar */
   function createNewWorkspace() {
     workspaceCounter++;
     const workspaceName = `Workspace ${String(workspaceCounter).padStart(
       2,
       "0"
     )}`;
-    const newWorkspaceHTML = `
-        <div class="sidebar-section workspace">
-            <div class="workspace-header">
-                <input type="checkbox" class="workspace-checkbox">
-                <span>${workspaceName}</span>
-                <div>
-                    <i class="fas fa-chevron-right action-icon"></i>
-                    <i class="fas fa-edit action-icon"></i>
-                </div>
-            </div>
-            <div class="workspace-content">
-                <a href="#" class="sidebar-item"><i class="far fa-file-alt"></i><span>Note</span></a>
-            </div>
-        </div>`;
 
-    // Sửa lỗi: Chèn vào đúng vùng cuộn
+    // Sửa lại khối HTML ở đây để bao gồm đủ 5 tính năng
+    const newWorkspaceHTML = `
+    <div class="sidebar-section workspace">
+        <div class="workspace-header">
+            <input type="checkbox" class="workspace-checkbox">
+            <span>${workspaceName}</span>
+            <div>
+                <i class="fas fa-chevron-right action-icon"></i>
+                <i class="fas fa-edit action-icon"></i>
+            </div>
+        </div>
+        <div class="workspace-content">
+            <a href="#" class="sidebar-item"><i class="far fa-file-alt"></i><span>Note</span></a>
+            <a href="#" class="sidebar-item"><i class="far fa-calendar-alt"></i><span>Calendar</span></a>
+            <a href="#" class="sidebar-item"><i class="fas fa-list-check"></i><span>To-do list</span></a>
+            <a href="#" class="sidebar-item"><i class="far fa-check-square"></i><span>Task</span></a>
+            <a href="#" class="sidebar-item"><i class="fas fa-users"></i><span>Team</span></a>
+        </div>
+    </div>`;
+
+    const scrollArea = document.querySelector(".sidebar-scroll-area");
     if (scrollArea) {
       scrollArea.insertAdjacentHTML("beforeend", newWorkspaceHTML);
       attachCollapsibleListeners();
@@ -295,7 +302,21 @@ document.addEventListener("DOMContentLoaded", () => {
         e.stopPropagation();
 
         const header = editIcon.closest(".workspace-header");
-        activeWorkspaceNameForMenu = header.querySelector("span").textContent;
+        const newWorkspaceName = header.querySelector("span").textContent;
+
+        // --- LOGIC MỚI ĐỂ ĐÓNG/MỞ ---
+        // Nếu menu đang hiện VÀ người dùng nhấn lại vào cùng một nút đã mở nó
+        if (
+          !workspaceContextMenu.classList.contains("hidden") &&
+          activeWorkspaceNameForMenu === newWorkspaceName
+        ) {
+          workspaceContextMenu.classList.add("hidden"); // Thì đóng menu lại
+          return; // Dừng hàm tại đây
+        }
+        // --- KẾT THÚC LOGIC MỚI ---
+
+        // Logic cũ để mở menu (hoặc chuyển menu sang vị trí mới)
+        activeWorkspaceNameForMenu = newWorkspaceName;
 
         const rect = editIcon.getBoundingClientRect();
         workspaceContextMenu.style.top = `${
